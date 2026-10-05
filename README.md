@@ -1,5 +1,7 @@
 # MarkdownPreviewOverlay
 
+[![Package Control](https://img.shields.io/badge/Package_Control-MarkdownPreviewOverlay-389826?logo=sublimetext&logoColor=white)](https://packagecontrol.io/packages/MarkdownPreviewOverlay)
+
 MarkdownPreviewOverlay is an editor-native Markdown reading mode for Sublime Text. It leaves the original Markdown in the buffer, folds the source, and renders the document as a themed minihtml phantom in the same view.
 
 ![MarkdownPreviewOverlay Demo](screenshot.gif)
@@ -17,6 +19,14 @@ Compared to traditional external browsers or split-pane previewers, **MarkdownPr
 - **Full Complex Markdown Support**: Seamlessly renders complex Markdown constructs, featuring a custom table engine that auto-adapts to your viewport width, along with syntax-highlighted code blocks, blockquotes, and nested lists tailored for miniHTML.
 
 > **Note**: Rendering is delegated directly to the `mdpopups` Package Control dependency without bundling a separate Markdown parser.
+
+## Installation
+
+The easiest way to install is via [Package Control](https://packagecontrol.io/packages/MarkdownPreviewOverlay):
+
+1. Open the Command Palette: `Command+Shift+P` (macOS) or `Ctrl+Shift+P` (Windows/Linux).
+2. Select **`Package Control: Install Package`**.
+3. Search for **`MarkdownPreviewOverlay`** and press `Enter`.
 
 ## Usage
 
