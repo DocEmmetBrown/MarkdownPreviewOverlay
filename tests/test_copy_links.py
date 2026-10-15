@@ -70,6 +70,18 @@ class TestInlineCodeCopyLinks(unittest.TestCase):
             '<code>a&#42;b&#42; http&#58;&#47;&#47;x</code></a>', res)
         self.assertTrue(res.startswith("Run ") and res.endswith(" now"))
 
+    def test_html_special_chars_survive_mdpopups_unescape(self):
+        # mdpopups unescapes every entity except &amp; &lt; &gt; &nbsp;
+        # (RE_BAD_ENTITIES); a raw <tag> left behind breaks minihtml.
+        import html
+        import re
+        res, texts = inject_copy_links("Use `<tag> & co` here")
+        self.assertEqual(texts, ["<tag> & co"])
+        self.assertIn('<code>&lt;tag&gt; &amp; co</code>', res)
+        bad_entities = re.compile(r'(&(?!amp;|lt;|gt;|nbsp;)(?:\w+;|#\d+;))')
+        unescaped = bad_entities.sub(lambda m: html.unescape(m.group(1)), res)
+        self.assertNotIn('<tag>', unescaped)
+
     def test_double_backticks_and_padding(self):
         _, texts = inject_copy_links("Use `` a`b `` and `c`")
         self.assertEqual(texts, ["a`b", "c"])

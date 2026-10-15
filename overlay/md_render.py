@@ -525,9 +525,15 @@ class CopyLinkInjector:
 
     @staticmethod
     def _encode_inline(text):
-        """Encode code text so Markdown inline processing leaves it untouched."""
+        """Encode code text so Markdown inline processing leaves it untouched.
+
+        mdpopups unescapes numeric entities before handing HTML to minihtml,
+        so ``&``, ``<`` and ``>`` must use the named entities it preserves.
+        """
+        named = {'&': '&amp;', '<': '&lt;', '>': '&gt;'}
         return ''.join(
-            c if c.isalnum() or c == ' ' else f'&#{ord(c)};' for c in text
+            c if c.isalnum() or c == ' ' else named.get(c, f'&#{ord(c)};')
+            for c in text
         )
 
     def _is_block_start(self, line):
